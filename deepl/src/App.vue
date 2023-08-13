@@ -25,7 +25,7 @@ import Navbar from './components/Navbar.vue'
         <Translator />
       </a-layout-content>
       <a-layout-footer style="text-align: center">
-        Ant Design ©2018 Created by Ant UED
+        Vtuber-plan ©2023 Created by XiaHan
       </a-layout-footer>
     </a-layout>
   </a-config-provider>
