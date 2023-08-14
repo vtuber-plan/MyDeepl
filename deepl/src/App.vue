@@ -15,7 +15,7 @@ import Navbar from './components/Navbar.vue'
       Layout: {
         colorBgHeader: '#ffffff',
       },
-      TextArea: {
+      Textarea: {
         fontSize: 64,
       }
     },
@@ -24,7 +24,7 @@ import Navbar from './components/Navbar.vue'
       <a-layout-header :style="{ position: 'fixed', zIndex: 1, width: '100%' }">
         <Navbar />
       </a-layout-header>
-      <a-layout-content :style="{ padding: '0 50px', marginTop: '64px' }">
+      <a-layout-content :style="{ padding: '0 80px', marginTop: '64px' }">
         <Translator />
       </a-layout-content>
       <a-layout-footer style="text-align: center">

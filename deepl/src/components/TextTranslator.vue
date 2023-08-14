@@ -13,6 +13,7 @@ const supported_languages = [
 ]
 
 import { ref } from 'vue'
+import SwitchButton from './SwitchButton.vue';
 
 const sourceValue = ref("")
 const targetValue = ref("")
@@ -22,12 +23,13 @@ const targetValue = ref("")
     <div class="translate-text">
         <div class="translate-sides">
             <div class="translate-sides-source">
+                <SwitchButton class="switch-button"></SwitchButton>
                 <div class="translate-sides-header">
                     <LanguageDropDown text="中文" :dropitems="supported_languages" />
                 </div>
                 <div class="translate-sides-input">
-                    <a-textarea v-model:value="sourceValue" placeholder="Basic usage" :bordered="false" size="large"
-                        :allowClear="true" :autoSize="{ minRows: 6, maxRows: 12 }" />
+                    <a-textarea v-model:value="sourceValue" placeholder="键入翻译" :bordered="false" size="large"
+                        :allowClear="true" :autoSize="{ minRows: 6, maxRows: 12 }" class="translate-textarea"/>
                 </div>
             </div>
             <div class="translate-sides-target">
@@ -35,8 +37,8 @@ const targetValue = ref("")
                     <LanguageDropDown text="英文" :dropitems="supported_languages" />
                 </div>
                 <div class="translate-sides-input">
-                    <a-textarea v-model:value="targetValue" placeholder="Basic usage" :bordered="false" size="large"
-                        :allowClear="true" :autoSize="{ minRows: 6, maxRows: 12 }" />
+                    <a-textarea v-model:value="targetValue" placeholder="" :bordered="false" size="large"
+                        :allowClear="true" :autoSize="{ minRows: 6, maxRows: 12 }" class="translate-textarea"/>
                 </div>
             </div>
 
@@ -66,12 +68,20 @@ const targetValue = ref("")
     position: relative;
 }
 
+.switch-button {
+    position: absolute;
+    top: 16px;
+    right: -16px;
+}
+
 .translate-sides-source {
+    position: relative;
     display: inline-block;
     width: 50%;
 }
 
 .translate-sides-target {
+    position: relative;
     display: inline-block;
     width: 50%;
 }
@@ -79,14 +89,14 @@ const targetValue = ref("")
 .translate-sides-header {
     position: absolute;
     top: 0px;
-    width: 50%;
+    width: 100%;
     border-bottom: 1px solid #dae1e8;
 }
 
 .translate-sides-input {
     display: flex;
     align-items: flex-start;
-    margin-top: 42px;
+    margin-top: 62px;
     border: 0px solid #dae1e8;
     padding: 8px;
 }
@@ -95,7 +105,12 @@ const targetValue = ref("")
     border-right: 1px solid #dae1e8;
 }
 
-textarea {
+</style>
+
+
+<style>
+textarea.ant-input.translate-textarea {
     resize: none;
+    font-size: 32px !important;
 }
 </style>

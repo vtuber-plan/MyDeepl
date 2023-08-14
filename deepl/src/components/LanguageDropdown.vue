@@ -51,7 +51,7 @@ var searchValue = ""
 }
 
 .dropdown-header {
-    padding: 8px;
+    padding: 16px;
 }
 
 button {
@@ -67,8 +67,8 @@ button {
     padding: 4px;
     font-style: normal;
     font-weight: 600;
-    font-size: 16px;
-    line-height: 24px;
+    font-size: 18px;
+    line-height: 28px;
 }
 
 .dropdown-icon {
