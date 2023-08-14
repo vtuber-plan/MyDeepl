@@ -72,6 +72,7 @@ const targetValue = ref("")
     position: absolute;
     top: 16px;
     right: -16px;
+    z-index: 3;
 }
 
 .translate-sides-source {

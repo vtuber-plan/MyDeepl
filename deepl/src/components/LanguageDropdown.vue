@@ -1,8 +1,10 @@
 <script setup lang="ts">
 
 import {
-    DownOutlined
+    DownOutlined,
+    UpOutlined,
 } from '@ant-design/icons-vue';
+
 class DropItem {
     text: string;
 
@@ -10,6 +12,7 @@ class DropItem {
         this.text = text;
     }
 }
+
 
 defineProps<{
     text: string,
@@ -32,11 +35,12 @@ var searchValue = ""
                     {{ text }}
                 </div>
                 <div class="dropdown-icon">
-                    <down-outlined />
+                    <down-outlined v-if="showDrop"/>
+                    <up-outlined v-else/>
                 </div>
             </button>
         </div>
-        <div class="dropdown-content" v-if="showDrop">
+        <div class="dropdown-content" v-if="showDrop" @left="">
             <a-input-search v-model:value="searchValue" placeholder="input search text" style="width: 200px" />
             <div v-for="item in dropitems" class="dropdown-item">
                 {{ item.text }}
@@ -81,9 +85,25 @@ button {
     top: 56px;
     z-index: 10;
     background-color: #fff;
-    padding: 8px;
+    padding: 16px;
     box-shadow: 0 1px 4px 0 rgba(0, 0, 0, .1);
     border-radius: 8px;
     border: 1px solid #dae1e8;
+}
+.dropdown-item {
+    position: relative;
+    width: 100%;
+    padding: 12px;
+    padding-right: 36px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 150%;
+    min-width: auto;
+    white-space: normal;
+    cursor: pointer;
+}
+.dropdown-item:hover {
+    background-color: rgba(255,200,87,.3);
 }
 </style>
