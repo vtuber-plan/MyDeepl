@@ -11,6 +11,11 @@ const supported_languages = [
         "text": "法语"
     }
 ]
+
+import { ref } from 'vue'
+
+const sourceValue = ref("")
+const targetValue = ref("")
 </script>
 
 <template>
@@ -18,12 +23,20 @@ const supported_languages = [
         <div class="translate-sides">
             <div class="translate-sides-source">
                 <div class="translate-sides-header">
-                    <LanguageDropDown text="中文" :dropitems="supported_languages"/>
+                    <LanguageDropDown text="中文" :dropitems="supported_languages" />
+                </div>
+                <div class="translate-sides-input">
+                    <a-textarea v-model:value="sourceValue" placeholder="Basic usage" :bordered="false" size="large"
+                        :allowClear="true" :autoSize="{ minRows: 6, maxRows: 12 }" />
                 </div>
             </div>
             <div class="translate-sides-target">
                 <div class="translate-sides-header">
-                    <LanguageDropDown text="英文" :dropitems="supported_languages"/>
+                    <LanguageDropDown text="英文" :dropitems="supported_languages" />
+                </div>
+                <div class="translate-sides-input">
+                    <a-textarea v-model:value="targetValue" placeholder="Basic usage" :bordered="false" size="large"
+                        :allowClear="true" :autoSize="{ minRows: 6, maxRows: 12 }" />
                 </div>
             </div>
 
@@ -48,12 +61,41 @@ const supported_languages = [
     border-radius: 8px;
     border: 1px solid #dae1e8;
 }
+
+.translate-text {
+    position: relative;
+}
+
 .translate-sides-source {
     display: inline-block;
     width: 50%;
 }
+
 .translate-sides-target {
     display: inline-block;
     width: 50%;
+}
+
+.translate-sides-header {
+    position: absolute;
+    top: 0px;
+    width: 50%;
+    border-bottom: 1px solid #dae1e8;
+}
+
+.translate-sides-input {
+    display: flex;
+    align-items: flex-start;
+    margin-top: 42px;
+    border: 0px solid #dae1e8;
+    padding: 8px;
+}
+
+.translate-sides-source .translate-sides-input {
+    border-right: 1px solid #dae1e8;
+}
+
+textarea {
+    resize: none;
 }
 </style>

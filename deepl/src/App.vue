@@ -14,6 +14,9 @@ import Navbar from './components/Navbar.vue'
       },
       Layout: {
         colorBgHeader: '#ffffff',
+      },
+      TextArea: {
+        fontSize: 64,
       }
     },
   }">
