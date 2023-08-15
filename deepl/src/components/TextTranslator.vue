@@ -44,7 +44,12 @@ const targetValue = ref("")
 
         </div>
         <div class="translate-dict">
-            123
+            <h3 class="translate-dict-header">
+                词典
+            </h3>
+            <div class="translate-dict-desc">
+                点击单词以查询
+            </div>
         </div>
     </div>
 </template>
@@ -62,6 +67,7 @@ const targetValue = ref("")
     box-shadow: 0 1px 4px 0 rgba(0, 0, 0, .1);
     border-radius: 8px;
     border: 1px solid #dae1e8;
+    margin-top: 8px;
 }
 
 .translate-text {
@@ -104,6 +110,19 @@ const targetValue = ref("")
 
 .translate-sides-source .translate-sides-input {
     border-right: 1px solid #dae1e8;
+}
+
+.translate-dict-header {
+    font-size: 24px;
+    padding: 16px 20px;
+}
+
+.translate-dict-desc {
+    font-size: 16px;
+    line-height: 1.5;
+    border-top: 1px solid #dae1e8;
+    padding: 18px;
+    color: rgb(110 110 110);
 }
 
 </style>

@@ -23,10 +23,6 @@ import {
         </CardButton>
     </div>
     <TextTranslator/>
-
-
-    <h1>123123</h1>
-    <a-button type="primary">Primary Button</a-button>
 </template>
 
 <style scoped>

@@ -23,8 +23,6 @@ import { ref } from 'vue'
 
 const showDrop = ref(false)
 
-var searchValue = ""
-
 </script>
 
 <template>
@@ -41,7 +39,11 @@ var searchValue = ""
             </button>
         </div>
         <div class="dropdown-content" v-if="showDrop" @left="">
-            <a-input-search v-model:value="searchValue" placeholder="input search text" style="width: 200px" />
+            <div class="search-input-box">
+                <svg class="search-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="#9BA3AC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                <label for="search-bar-language" class="sr-only">搜索语言</label>
+                <input id="search-bar-language" class="search-input" placeholder="搜索语言">
+            </div>
             <div v-for="item in dropitems" class="dropdown-item">
                 {{ item.text }}
             </div>
@@ -105,5 +107,26 @@ button {
 }
 .dropdown-item:hover {
     background-color: rgba(255,200,87,.3);
+}
+
+.search-input-box {
+    display: flex;
+    padding: 8px;
+    align-items: center;
+    border: 1px solid transparent;
+    border-radius: 5px;
+}
+.search-input {
+    border: None;
+    height: 24px;
+}
+.search-input:focus {
+    outline: none;
+}
+.search-input-box:focus-within {
+    border: 1px solid rgb(0 100 148);
+}
+.sr-only {
+    display: none;
 }
 </style>
