@@ -28,7 +28,7 @@ const targetValue = ref("")
                     <LanguageDropDown text="中文" :dropitems="supported_languages" />
                 </div>
                 <div class="translate-sides-input">
-                    <a-textarea v-model:value="sourceValue" placeholder="键入翻译" :bordered="false" size="large"
+                    <a-textarea v-model:value="sourceValue" :placeholder="this.$t('message.typeTranslation')" :bordered="false" size="large"
                         :allowClear="true" :autoSize="{ minRows: 6, maxRows: 12 }" class="translate-textarea"/>
                 </div>
             </div>
