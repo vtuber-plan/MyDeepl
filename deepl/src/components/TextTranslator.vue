@@ -15,8 +15,49 @@ const supported_languages = [
 import { ref } from 'vue'
 import SwitchButton from './SwitchButton.vue';
 
+const timeoutValue = ref(-1)
 const sourceValue = ref("")
 const targetValue = ref("")
+const sourceLanguage = ref("Detect Language")
+const targetLanguage = ref("English (UK)")
+// const sourceInput = ref<HTMLDivElement | null>(null)
+// const targetInput = ref<HTMLDivElement | null>(null)
+
+import { translate, detect_language } from '../translation'
+
+function debounce(func: CallableFunction, wait: number) {
+    if (timeoutValue.value != -1) clearTimeout(timeoutValue.value)
+    timeoutValue.value = setTimeout(() => {
+        func()
+    }, wait)
+}
+
+async function sourceChangeDebounced() {
+    const lang = await detect_language(sourceValue.value)
+    if (lang == null || lang == undefined) { return; }
+    sourceLanguage.value = lang
+
+    // translation
+    const result = await translate(sourceLanguage.value, targetLanguage.value, sourceValue.value)
+    if (result == null || result == undefined) { return; }
+    targetValue.value = result
+}
+
+async function sourceChange() {
+    console.log("sourceChange")
+    debounce(sourceChangeDebounced, 500)
+}
+
+async function targetChangeDebounced() {
+    const lang = await detect_language(targetValue.value)
+    if (lang == null || lang == undefined) { return; }
+    targetLanguage.value = lang
+}
+
+async function targetChange() {
+    console.log("targetChange")
+    debounce(targetChangeDebounced, 500)
+}
 </script>
 
 <template>
@@ -25,30 +66,32 @@ const targetValue = ref("")
             <div class="translate-sides-source">
                 <SwitchButton class="switch-button"></SwitchButton>
                 <div class="translate-sides-header">
-                    <LanguageDropDown text="中文" :dropitems="supported_languages" />
+                    <LanguageDropDown :text="sourceLanguage" :dropitems="supported_languages" />
                 </div>
                 <div class="translate-sides-input">
-                    <a-textarea v-model:value="sourceValue" :placeholder="this.$t('message.typeTranslation')" :bordered="false" size="large"
-                        :allowClear="true" :autoSize="{ minRows: 6, maxRows: 12 }" class="translate-textarea"/>
+                    <a-textarea ref="sourceInput" v-model:value="sourceValue"
+                        :placeholder="this.$t('message.typeTranslation')" :bordered="false" size="large" :allowClear="true"
+                        :autoSize="{ minRows: 6, maxRows: 12 }" class="translate-textarea" @change="sourceChange" />
                 </div>
             </div>
             <div class="translate-sides-target">
                 <div class="translate-sides-header">
-                    <LanguageDropDown text="英文" :dropitems="supported_languages" />
+                    <LanguageDropDown :text="targetLanguage" :dropitems="supported_languages" />
                 </div>
                 <div class="translate-sides-input">
-                    <a-textarea v-model:value="targetValue" placeholder="" :bordered="false" size="large"
-                        :allowClear="true" :autoSize="{ minRows: 6, maxRows: 12 }" class="translate-textarea"/>
+                    <a-textarea ref="targetInput" v-model:value="targetValue" placeholder="" :bordered="false" size="large"
+                        :allowClear="true" :autoSize="{ minRows: 6, maxRows: 12 }" class="translate-textarea"
+                        @change="targetChange" />
                 </div>
             </div>
 
         </div>
         <div class="translate-dict">
             <h3 class="translate-dict-header">
-                词典
+                {{ this.$t("message.dictionary") }}
             </h3>
             <div class="translate-dict-desc">
-                点击单词以查询
+                {{ this.$t("message.dictionaryDetails") }}
             </div>
         </div>
     </div>
@@ -124,7 +167,6 @@ const targetValue = ref("")
     padding: 18px;
     color: rgb(110 110 110);
 }
-
 </style>
 
 

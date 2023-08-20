@@ -5,19 +5,25 @@ const messages = {
     en: {
         message: {
             hello: 'hello world',
-            typeTranslation: 'Type to translate'
+            typeTranslation: 'Type to translate',
+            dictionary: 'Dictionary',
+            dictionaryDetails: 'Click on a word to look it up.'
         }
     },
     ja: {
         message: {
             hello: 'こんにちは、世界',
-            typeTranslation: null
+            typeTranslation: null,
+            dictionary: null,
+            dictionaryDetails: null,
         }
     },
     zhcn: {
         message: {
             hello: '你好世界',
-            typeTranslation: '键入翻译'
+            typeTranslation: '键入翻译',
+            dictionary: '词典',
+            dictionaryDetails: '点击单词以查询',
         }
     }
 }
