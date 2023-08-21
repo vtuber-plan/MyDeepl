@@ -9,17 +9,13 @@ export async function translate(source: string, target: string, text: string) {
   if (text.length == 0) {
     return ""
   }
-  const chatCompletion = await openai.createChatCompletion({
-    messages: [
-        { role: 'system', content: `You are now playing the role of a proficient translator, translating all the ${source} I have typed below into ${target}. `},
-        { role: 'user', content: "你好" },
-        { role: 'assistant', content: "hello" },
-        { role: 'user', content: text }],
-    model: 'gpt-3.5-turbo',
+  const completion = await openai.createCompletion({
+    prompt: `You are now playing the role of a proficient translator, translating all the ${source} I have typed below into ${target}. ###你好===hello###${text}===`,
+    model: 'text-davinci-003',
   });
 
-  console.log(chatCompletion.data.choices);
-  return chatCompletion.data.choices[0].message?.content;
+  console.log(completion.data.choices);
+  return completion.data.choices[0].text;
 }
 
 
