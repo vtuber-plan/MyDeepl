@@ -9,9 +9,13 @@ export async function translate(source: string, target: string, text: string) {
   if (text.length == 0) {
     return ""
   }
+  if (source == target) {
+    return text
+  }
   const completion = await openai.createCompletion({
-    prompt: `You are now playing the role of a proficient translator, translating all the ${source} I have typed below into ${target}. ###你好===hello###${text}===`,
+    prompt: `Consider a conversation between User and a proficient translator.\nUser: ${text}\nTranslate the above text into ${target}.\nTranslator: `,
     model: 'text-davinci-003',
+    max_tokens: 2048,
   });
 
   console.log(completion.data.choices);

@@ -2,13 +2,13 @@
 import LanguageDropDown from './LanguageDropdown.vue'
 const supported_languages = [
     {
-        "text": "中文"
+        "text": "Chinese"
     },
     {
-        "text": "英语"
+        "text": "English"
     },
     {
-        "text": "法语"
+        "text": "Japanese"
     }
 ]
 
@@ -19,7 +19,7 @@ const timeoutValue = ref(-1)
 const sourceValue = ref("")
 const targetValue = ref("")
 const sourceLanguage = ref("Detect Language")
-const targetLanguage = ref("English (UK)")
+const targetLanguage = ref("English")
 // const sourceInput = ref<HTMLDivElement | null>(null)
 // const targetInput = ref<HTMLDivElement | null>(null)
 
@@ -35,6 +35,7 @@ function debounce(func: CallableFunction, wait: number) {
 async function sourceChangeDebounced() {
     const lang = await detect_language(sourceValue.value)
     if (lang == null || lang == undefined) { return; }
+    if (lang.trim().length == 0 || lang.trim().length > 16) { return; }
     sourceLanguage.value = lang
 
     // translation
@@ -51,6 +52,7 @@ async function sourceChange() {
 async function targetChangeDebounced() {
     const lang = await detect_language(targetValue.value)
     if (lang == null || lang == undefined) { return; }
+    if (lang.trim().length == 0 || lang.trim().length > 16) { return; }
     targetLanguage.value = lang
 }
 
@@ -76,7 +78,7 @@ async function targetChange() {
             </div>
             <div class="translate-sides-target">
                 <div class="translate-sides-header">
-                    <LanguageDropDown :text="targetLanguage" :dropitems="supported_languages" />
+                    <LanguageDropDown v-model:text="targetLanguage" :dropitems="supported_languages" />
                 </div>
                 <div class="translate-sides-input">
                     <a-textarea ref="targetInput" v-model:value="targetValue" placeholder="" :bordered="false" size="large"
@@ -173,6 +175,6 @@ async function targetChange() {
 <style>
 textarea.ant-input.translate-textarea {
     resize: none;
-    font-size: 32px !important;
+    font-size: 24px !important;
 }
 </style>

@@ -15,13 +15,20 @@ class DropItem {
 
 
 defineProps<{
-    text: string,
     dropitems: Array<DropItem>,
 }>()
+
+const text = defineModel<string>("text", { local: false, default: "english" })
 
 import { ref } from 'vue'
 
 const showDrop = ref(false)
+
+
+function dropdownClick(item: DropItem) {
+    text.value = item.text
+    showDrop.value = false
+}
 
 </script>
 
@@ -44,7 +51,7 @@ const showDrop = ref(false)
                 <label for="search-bar-language" class="sr-only">搜索语言</label>
                 <input id="search-bar-language" class="search-input" placeholder="搜索语言">
             </div>
-            <div v-for="item in dropitems" class="dropdown-item">
+            <div v-for="item in dropitems" class="dropdown-item" @click="dropdownClick(item)">
                 {{ item.text }}
             </div>
         </div>
