@@ -14,7 +14,7 @@ export async function translate(source: string, target: string, text: string) {
   }
   const completion = await openai.createCompletion({
     prompt: `Consider a conversation between User and a proficient translator.\nUser: ${text}\nTranslate the above text into ${target}.\nTranslator: `,
-    model: 'text-davinci-003',
+    model: import.meta.env.VITE_MODEL_NAME,
     max_tokens: 2048,
   });
 
@@ -33,7 +33,7 @@ export async function detect_language(text: string) {
         { role: 'user', content: "你好" },
         { role: 'assistant', content: "Chinese" },
         { role: 'user', content: text }],
-    model: 'gpt-3.5-turbo',
+    model: import.meta.env.VITE_MODEL_NAME,
   });
 
   console.log(chatCompletion.data.choices);
