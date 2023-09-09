@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { notification } from 'ant-design-vue';
 import LanguageDropDown from './LanguageDropdown.vue'
 const supported_languages = [
     {
@@ -32,16 +33,36 @@ function debounce(func: CallableFunction, wait: number) {
     }, wait)
 }
 
-async function sourceChangeDebounced() {
+async function eventDetectLanguage() {
     const lang = await detect_language(sourceValue.value)
     if (lang == null || lang == undefined) { return; }
-    if (lang.trim().length == 0 || lang.trim().length > 16) { return; }
+    if (lang.trim().length == 0 || lang.trim().length > 64) { return; }
     sourceLanguage.value = lang
+}
 
+async function eventTranslate() {
     // translation
-    const result = await translate(sourceLanguage.value, targetLanguage.value, sourceValue.value)
-    if (result == null || result == undefined) { return; }
+    let result = null
+    try {
+        result = await translate(sourceLanguage.value, targetLanguage.value, sourceValue.value)
+    } catch(e) {
+        notification.open({
+            message: 'Error',
+            description:
+            'The input text is too long for translation model.',
+            onClick: () => {
+            console.log('Notification Clicked!');
+            },
+        });
+    }
+    if (result == null || result == undefined) {
+        return;
+    }
     targetValue.value = result
+}
+
+async function sourceChangeDebounced() {
+    await Promise.all([eventDetectLanguage(), eventTranslate()]);
 }
 
 async function sourceChange() {
@@ -52,7 +73,7 @@ async function sourceChange() {
 async function targetChangeDebounced() {
     const lang = await detect_language(targetValue.value)
     if (lang == null || lang == undefined) { return; }
-    if (lang.trim().length == 0 || lang.trim().length > 16) { return; }
+    if (lang.trim().length == 0 || lang.trim().length > 64) { return; }
     targetLanguage.value = lang
 }
 
@@ -68,7 +89,7 @@ async function targetChange() {
             <div class="translate-sides-source">
                 <SwitchButton class="switch-button"></SwitchButton>
                 <div class="translate-sides-header">
-                    <LanguageDropDown :text="sourceLanguage" :dropitems="supported_languages" />
+                    <LanguageDropDown v-model:text="sourceLanguage" :dropitems="supported_languages" />
                 </div>
                 <div class="translate-sides-input">
                     <a-textarea ref="sourceInput" v-model:value="sourceValue"

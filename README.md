@@ -5,7 +5,7 @@ Build a self-hosted translator website powered by ChatGPT
 
 采用标准OpenAI的补全接口，这里推荐翻译后端使用[LangPort](https://github.com/vtuber-plan/langport)。
 
-[DEMO]()
+[LLM翻译DEMO网站](http://frp-ask.top:35133/)
 
 使用前添加接口环境设置：
 ```
